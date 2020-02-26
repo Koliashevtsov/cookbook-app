@@ -1,0 +1,15 @@
+@import "../../../styles/variables.scss";
+
+.delete-icon {
+    box-sizing: border-box;
+    display: inline-block;
+    width: 30px;
+    height: 30px;
+    text-align: center;
+
+    &:hover {
+        cursor: pointer;
+        border: 2px solid $backgroundColorOrange;
+        border-radius: 5px;
+    }
+}

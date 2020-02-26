@@ -1,0 +1,21 @@
+@import "../../styles/variables.scss";
+
+.collapse {
+    margin-top: 20px;
+
+    button {
+        display: block;
+        background-color: white;
+        color: $panelColorDark;
+        border: 2px solid #f0f0f0;
+        border-radius: 5px;
+        padding: 4px 8px;
+        margin: 0 auto;
+        font-family: $panelFontFamilyMain;
+
+        &:hover {
+            border: 2px solid $backgroundColorOrange;
+            cursor: pointer;
+        }
+    }
+}

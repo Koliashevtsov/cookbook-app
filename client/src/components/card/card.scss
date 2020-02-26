@@ -1,0 +1,82 @@
+@import "../../styles/variables.scss";
+
+.card {
+    display: flex;
+    justify-content: space-between;
+    flex-flow: row wrap;
+    padding: 20px;
+    border: 1px solid #f0f0f0;
+}
+.card-meta {
+    flex: 1 1 460px;
+    display: flex;
+    justify-content: flex-start;
+    padding-right: 20px;
+    flex-flow: column;
+    font-family: $entryFontFamilyMain;
+    color: $entryColorPrimary;
+
+    h3 {
+        margin: 0;
+    }
+    .card-meta-descriptions {
+        height: 63px;
+        overflow: hidden;
+    }
+    p {
+        font-size: $entryFontMedium;
+        word-break: break-all;
+        overflow: hidden;
+        margin-top: 5px;
+    }
+
+    .card-meta-date {
+        font-family: $panelFontFamilyMain;
+        font-size: $panelFontSizeSmall;
+        font-weight: lighter;
+        margin-top: auto;
+
+        span:first-child {
+            margin-right: 20px;
+        }
+    }
+}
+
+.card-image {
+    flex: 0 0 200px;
+    height: 120px;
+    background-color: grey;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+
+    img {
+        display: inline-block;
+        width: 100%;
+    }
+}
+
+
+
+
+@media (max-width: 767px) {
+    .card {
+        .card-meta {
+            padding-right: 0
+        }
+        h3 {
+            text-align: center;
+        }
+        p {
+            text-align: center;
+        }
+        .card-meta-date {
+            display: none;
+        }
+    }
+
+    .card-image {
+        margin: 0 auto;
+        margin-top: 20px;
+    }
+}

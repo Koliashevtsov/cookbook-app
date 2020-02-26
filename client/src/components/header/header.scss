@@ -1,0 +1,31 @@
+@import "../../styles/variables.scss";
+.header {
+    width: 100%;
+    height: 40px;
+    line-height: 40px;
+    background-color: $backgroundColorDark;
+
+    .header-container {
+        display: flex;
+        box-sizing: border-box;
+        max-width: 768px;
+        margin: 0 auto;
+        padding: 0 20px 0 20px;
+        color: $panelColorSecondary;
+        font-family: $panelFontFamilyMain;
+        font-size: $panelFontSizeMedium;
+    }
+
+    span {
+        display: inline-block;
+        padding: 0 14px 0 14px;
+    }
+    .active {
+        background-color: $backgroundColorOrange;
+    }
+    .user-icon-wrapper {
+        margin-left: auto;
+        color: $panelColorPrimary;
+        font-size: 16px;
+    }
+}

@@ -1,0 +1,9 @@
+.preversions-list {
+    li {
+        margin-top: 20px;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}

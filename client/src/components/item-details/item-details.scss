@@ -1,0 +1,54 @@
+@import "../../styles/variables.scss";
+
+.item-details {
+
+
+    .item-details-container {
+        border: 1px solid #f0f0f0;
+        font-family: $entryFontFamilyMain;
+        color: $entryColorPrimary;
+        padding: 20px;
+
+        .item-details-header {
+            display: flex;
+            flex-flow: row nowrap;
+
+            h3 {
+                margin: 0;
+            }
+            .icons-wrapper {
+                margin-left: auto;
+                display: flex;
+                align-items: center;
+            }
+        }
+        .item-details-descriptions {
+            p {
+                font-size: $entryFontMedium;
+            }
+        }
+        .item-details-date {
+            display: flex;
+            justify-content: space-between;
+            font-family: $panelFontFamilyMain;
+            font-size: $panelFontSizeSmall;
+            font-weight: lighter;
+        }
+
+        .item-details-image {
+            max-width: 400px;
+            height: 250px;
+            margin: 20px auto;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+
+            img {
+                display: inline-block;
+                width: 100%;
+            }
+
+
+        }
+    }
+}

@@ -1,0 +1,14 @@
+.items-list {
+    padding: 20px;
+
+    li {
+        margin-bottom: 20px;
+
+        :hover {
+            cursor: pointer;
+        }
+    }
+    li:last-child {
+        margin-bottom: 0;
+    }
+}
