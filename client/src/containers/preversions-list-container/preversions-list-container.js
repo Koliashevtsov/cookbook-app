@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import Collapse from '../../components/collapse';
 import PreversionsList from '../../components/preversions-list';
+
+import { compose } from '../../utils';
 
 class PreversionsListContainer extends Component {
     render(){
@@ -22,10 +25,14 @@ class PreversionsListContainer extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, { match }) => {
+    const recipeId = match.params.itemId;
     return {
         previousVersions: state.previousVersions,
-        publishedDate: state.listRecipes[state.currentVersion.parentId].publishedDate
+        publishedDate: state.listRecipes[recipeId].publishedDate
     };
 }
-export default connect(mapStateToProps)(PreversionsListContainer)
+export default compose(
+    withRouter,
+    connect(mapStateToProps)
+)(PreversionsListContainer)

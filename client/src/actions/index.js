@@ -10,9 +10,9 @@ const recipesListError = (err) => {
         payload: err
     };
 }
-const getCurrentRecipe = (parentId, updatedDate) => {
+const getCurrentVersion = (parentId, updatedDate) => {
     return {
-        type: 'CURRENT_RECIPE_SUCCESS',
+        type: 'CURRENT_VERSION_SUCCESS',
         payload: [parentId, updatedDate]
     };
 }
@@ -24,5 +24,5 @@ const fetchRecipes = (cookbookService, dispatch) => () => {
 
 export {
     fetchRecipes,
-    getCurrentRecipe
+    getCurrentVersion
 }
