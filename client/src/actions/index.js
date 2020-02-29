@@ -16,13 +16,37 @@ const getCurrentVersion = (parentId, updatedDate) => {
         payload: [parentId, updatedDate]
     };
 }
+const addNewVersion = (title, imageUrl, descr) => {
+    return {
+        type: 'ADD_NEW_VERSION_SUCCESS',
+        payload: [title, imageUrl, descr]
+    };
+}
+const deleteItemVersion = (parentId, updatedDate) => {
+    return {
+        type: 'DELETE_VERSION_SUCCESS',
+        payload: [parentId, updatedDate]
+    };
+}
+const addNewRecipe = (title, imageUrl, descr) => {
+    return {
+        type: 'ADD_NEW_RECIPE_SUCCESS',
+        payload: [title, imageUrl, descr]
+    };
+}
 const fetchRecipes = (cookbookService, dispatch) => () => {
     cookbookService.getRecipesList()
-        .then(data => dispatch(reciresListLoaded(data)))
+        .then(data => {
+            console.log('data', data);
+            dispatch(reciresListLoaded(data))
+        })
         .catch(err => dispatch(recipesListError(err)))
 }
 
 export {
     fetchRecipes,
-    getCurrentVersion
+    getCurrentVersion,
+    addNewVersion,
+    addNewRecipe,
+    deleteItemVersion
 }

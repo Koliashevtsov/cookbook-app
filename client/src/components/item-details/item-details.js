@@ -14,9 +14,11 @@ const ItemDetails = (props) => {
             descriptions,
             updatedDate
         },
-        publishedDate
+        publishedDate,
+        onClickEdit,
+        onClickDelete
     } = props;
-    
+
     return (
         <div className="item-details">
             <div className="item-details-container">
@@ -25,8 +27,8 @@ const ItemDetails = (props) => {
                         {title}
                     </h3>
                     <div className="icons-wrapper">
-                        <EditIcon/>
-                        <DeleteIcon/>
+                        <EditIcon onClick={onClickEdit}/>
+                        <DeleteIcon onClick={onClickDelete}/>
                     </div>
                 </div>
                 <div className="item-details-image">

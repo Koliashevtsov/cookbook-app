@@ -13,8 +13,10 @@ const Header = (props) => {
                 <Link to="/">
                     <span className="active">Home</span>
                 </Link>
+                <Link to="/add-item">
+                    <span>Add new</span>
+                </Link>
 
-                <span>Add new</span>
                 <span className="user-icon-wrapper">
                     <UserIcon/>
                 </span>

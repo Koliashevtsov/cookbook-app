@@ -1,0 +1,78 @@
+@import "../../styles/variables.scss";
+
+.form-component {
+    padding: 20px;
+
+    .form-component-container {
+        padding: 20px;
+        border: 1px solid $borderColorPrimary;
+        font-family: $panelFontFamilyMain;
+    }
+
+    .inputs-wrapper {
+        display: flex;
+        flex-flow: row wrap;
+        p {
+            flex: 1 1 300px;
+            font-size: $panelFontSizeLarge;
+            margin: 0;
+            margin-bottom: 10px;
+        }
+        input {
+            flex: 1 1 680px;
+            margin-bottom: 20px;
+            padding: 6px 12px;
+            border: 2px solid $borderColorPrimary;
+            border-radius: 5px;
+            font-family: $entryFontFamilyMain;
+            font-size: $entryFontMedium;
+            color: $entryColorPrimary;
+
+            &:focus {
+                border: 2px solid $borderColorOrange;
+            }
+        }
+        textarea {
+            flex: 1 1 680px;
+            margin-bottom: 20px;
+            padding: 6px 12px;
+            border: 2px solid $borderColorPrimary;
+            border-radius: 5px;
+            font-family: $entryFontFamilyMain;
+            font-size: $entryFontMedium;
+            color: $entryColorPrimary;
+
+            &:focus {
+                border: 2px solid $borderColorOrange;
+            }
+        }
+    }
+
+
+    button {
+        display: inline-block;
+        width: 80px;
+        height: 36px;
+        font-size: $panelFontSizeMedium;
+        background-color: #ffffff;
+        border-radius: 5px;
+    }
+    .submit {
+        background-color: $panelColorPrimary;
+        color: #ffffff;
+        border: 2px solid $borderColorOrange;
+        margin-right: 20px;
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+    .cancel {
+        border: 2px solid $borderColorPrimary;
+
+        &:hover {
+            cursor: pointer;
+            border: 2px solid $panelColorPrimary;
+        }
+    }
+}

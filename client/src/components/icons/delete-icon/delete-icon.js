@@ -6,9 +6,9 @@ import StaticIcon from '../static-icon';
 
 import './delete-icon.scss';
 
-const DeleteIcon = (props) => {
+const DeleteIcon = ({onClick}) => {
     return (
-        <span className="delete-icon">
+        <span onClick={onClick} className="delete-icon">
             <StaticIcon icon={ faTrashAlt }/>
         </span>
     );

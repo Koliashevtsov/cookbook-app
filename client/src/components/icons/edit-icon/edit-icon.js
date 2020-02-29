@@ -6,9 +6,9 @@ import StaticIcon from '../static-icon';
 
 import './edit-icon.scss';
 
-const EditIcon = (props) => {
+const EditIcon = ({onClick}) => {
     return (
-        <span className="edit-icon">
+        <span onClick={onClick} className="edit-icon">
             <StaticIcon icon={faEdit}/>
         </span>
     );
