@@ -28,11 +28,8 @@ const deleteItemVersion = (parentId, updatedDate) => {
         payload: [parentId, updatedDate]
     };
 }
-const addNewRecipe = (title, imageUrl, descr) => {
-    return {
-        type: 'ADD_NEW_RECIPE_SUCCESS',
-        payload: [title, imageUrl, descr]
-    };
+const addNewRecipe = (cookbookService) => (title, imageUrl, descr) => () => {
+    cookbookService.addNewRecipe(title, imageUrl, descr);
 }
 const fetchRecipes = (cookbookService, dispatch) => () => {
     cookbookService.getRecipesList()

@@ -3,8 +3,9 @@ const Schema = mongoose.Schema;
 
 const DataSchema = new Schema(
     {
-        id: Number,
-        message: String
+        id: String,
+        publishedDate: Number,
+        listVersions: Array
     }
 )
 

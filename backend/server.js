@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 const express = require('express');
-const cors = require('cors');
+var cors = require('cors');
 const bodyParser = require('body-parser');
 const Data = require('./data');
 
@@ -54,18 +54,21 @@ router.delete('/deleteData', (req, res) => {
 
 // this method adds new data in our database
 router.post('/putData', (req, res) => {
-    let Data = new Data();
+    let data = new Data();
 
-    const { id, message } = req.body;
+    const { id, publishedDate, listVersions } = req.body;
+    console.log(res);
 
-    if ((!id && id !== 0) || !message){
+    if ((!id && id !== 0) || !publishedDate){
         return res.json({
             success: false,
             error: 'INVALID_INPUTS'
         });
     }
-    data.message = message;
     data.id = id;
+    data.publishedDate = publishedDate;
+    data.listVersions = listVersions;
+
     data.save((err) => {
         if (err) return res.json({ success: false, error: err });
         return res.json({ success: true });
