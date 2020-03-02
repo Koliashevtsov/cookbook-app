@@ -37,7 +37,6 @@ const addNewRecipe = (title, imageUrl, descr) => {
 const fetchRecipes = (cookbookService, dispatch) => () => {
     cookbookService.getRecipesList()
         .then(data => {
-            console.log('data', data);
             dispatch(reciresListLoaded(data))
         })
         .catch(err => dispatch(recipesListError(err)))

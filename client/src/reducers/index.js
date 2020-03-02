@@ -36,10 +36,14 @@ const addNewVersion = (state, action) => {
     const idCurrentRecipe = parentId;
     const idxCurrentRecipe = state.listRecipes.findIndex(item => item.id === idCurrentRecipe);
     const currentRecipe = state.listRecipes[idxCurrentRecipe];
-    const newListVersions = currentRecipe.listVersions.unshift(newVersion)
+    const listVersions = currentRecipe.listVersions;
+    const newListVersions = [
+        newVersion,
+        ...listVersions
+    ]
     const newRecipe = {
         ...currentRecipe,
-        newListVersions
+        listVersions: newListVersions
     }
     const newListRecipes = [
         ...state.listRecipes.slice(0, idxCurrentRecipe),
@@ -80,11 +84,9 @@ const addNewRecipe = (state, action) => {
 
 const deleteItemVersion = (state, action) => {
     const list = state.listRecipes;
-    console.log(list);
     const recipeId = action.payload[0]
     const updatedDate = action.payload[1];
     const idxCurrentRecipe = list.findIndex(item => item.id == recipeId);
-    console.log("idxCurrentRecipe", idxCurrentRecipe);
     const currentRecipe = list[idxCurrentRecipe];
     const listVersions = currentRecipe.listVersions;
 
@@ -110,7 +112,6 @@ const deleteItemVersion = (state, action) => {
     // since i deleted currentVersion i must rewrite
     // currentVersion and previousVersions to state
     const newCurrentVersion = newListVersions[0];
-    console.log('newCurrentVersion', newCurrentVersion);
     const newPreviousVersions = newListVersions.slice(1)
 
     if(newListVersions.length === 0){
@@ -134,7 +135,6 @@ const deleteItemVersion = (state, action) => {
 }
 
 const reducer = (state, action) => {
-    console.log(action.type);
     if (state === undefined){
         return {
             listRecipes: [],

@@ -27,9 +27,16 @@ class PreversionsListContainer extends Component {
 
 const mapStateToProps = (state, { match }) => {
     const recipeId = match.params.itemId;
+    const recipe = state.listRecipes.find(item => item.id == recipeId)
+    if (!recipe){
+        return {
+            previousVersions: state.previousVersions,
+            publishedDate: 0
+        };
+    }
     return {
         previousVersions: state.previousVersions,
-        publishedDate: state.listRecipes[recipeId].publishedDate
+        publishedDate: recipe.publishedDate
     };
 }
 export default compose(

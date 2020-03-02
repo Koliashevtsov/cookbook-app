@@ -11,12 +11,12 @@ import { compose } from '../../utils';
 class ItemsListContainer extends Component {
 
     componentDidMount(){
-        console.log('componentDidMount');
-        this.props.getList()
+        if(this.props.listRecipes.length === 0){
+            this.props.getList()
+        }
     }
 
     render(){
-        console.log('list', this.props.listRecipes);
         return (
             <ItemsList items={this.props.listRecipes}/>
         );

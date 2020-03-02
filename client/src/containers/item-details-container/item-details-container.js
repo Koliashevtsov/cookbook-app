@@ -25,11 +25,8 @@ class ItemDetailsContainer extends Component {
     }
 
     componentDidUpdate(prevProps){
-        console.log('currentVersion', this.props.currentVersion);
-        console.log('previousVersions', this.props.previousVersions);
 
         if(this.props.match.params.updatedDate !== prevProps.match.params.updatedDate){
-            console.log('componentDidUpdate, getCurrentVersion()');
             this.props.getCurrentVersion()
         }
 
@@ -40,7 +37,6 @@ class ItemDetailsContainer extends Component {
             // so i do review to work
             if(this.props.currentVersion){
                 if(this.props.match.params.updatedDate !== this.props.currentVersion.updatedDate){
-                    console.log('pushed in path')
                     this.props.history.push(`/view-page/${this.props.currentVersion.parentId}/${this.props.currentVersion.updatedDate}`)
 
                 }
@@ -69,9 +65,16 @@ class ItemDetailsContainer extends Component {
 
 const mapStateToProps = (state, { match }) => {
     const recipeId = match.params.itemId;
+    const recipe = state.listRecipes.find(item => item.id == recipeId);
+    if (!recipe){
+        return {
+            currentVersion: state.currentVersion,
+            publishedDate: 0
+        };
+    }
     return {
         currentVersion: state.currentVersion,
-        publishedDate: state.listRecipes[recipeId].publishedDate,
+        publishedDate: recipe.publishedDate,
     };
 }
 const mapDispatchToProps = (dispatch, { match, history }) => {

@@ -1,7 +1,12 @@
-import { createStore } from 'redux';
+import { createStore, compose } from 'redux';
+import persistState from 'redux-localstorage';
 
 import reducer from './reducers';
 
-const store = createStore(reducer);
+const enhancer = compose(
+  persistState()
+);
+
+const store = createStore(reducer, enhancer);
 
 export default store;
