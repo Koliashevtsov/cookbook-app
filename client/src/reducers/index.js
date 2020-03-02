@@ -46,7 +46,13 @@ const addNewVersion = (state, action) => {
         newRecipe,
         ...state.listRecipes.slice(idxCurrentRecipe + 1)
     ]
-    return newListRecipes
+    const newPreviousVersions = newListVersions.slice(1)
+    return {
+        ...state,
+        listRecipes: newListRecipes,
+        currentVersion: newVersion,
+        previousVersions: newPreviousVersions
+    }
 }
 const addNewRecipe = (state, action) => {
     const list = state.listRecipes;
@@ -103,8 +109,9 @@ const deleteItemVersion = (state, action) => {
     ]
     // since i deleted currentVersion i must rewrite
     // currentVersion and previousVersions to state
-    const newCurrentVersion = newListVersions[idxDeletedVersion];
-    const newPreviousVersions = newListVersions.slice(idxDeletedVersion + 1)
+    const newCurrentVersion = newListVersions[0];
+    console.log('newCurrentVersion', newCurrentVersion);
+    const newPreviousVersions = newListVersions.slice(1)
 
     if(newListVersions.length === 0){
         const newListRecipes = [
@@ -147,10 +154,7 @@ const reducer = (state, action) => {
         case 'CURRENT_VERSION_SUCCESS':
             return getCurrentVersion(state, action)
         case 'ADD_NEW_VERSION_SUCCESS':
-            return {
-                ...state,
-                listRecipes: addNewVersion(state, action)
-            };
+            return addNewVersion(state, action);
         case 'ADD_NEW_RECIPE_SUCCESS':
             return {
                 ...state,
