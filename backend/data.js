@@ -1,11 +1,11 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-const DataSchema = new Schema(
+const dataSchema = new Schema(
     {
         id: Number,
         message: String
     }
 )
 
-module.exports = mongoose.model("Data", DataSchema);
+module.exports = mongoose.model("Data", dataSchema);
