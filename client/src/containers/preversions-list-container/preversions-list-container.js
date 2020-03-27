@@ -26,10 +26,10 @@ class PreversionsListContainer extends Component {
 }
 
 const mapStateToProps = (state, { match }) => {
-    const recipeId = match.params.itemId;
+    const recipeId = match.params.recipeId;
     return {
         previousVersions: state.previousVersions,
-        publishedDate: state.listRecipes[recipeId].publishedDate
+        publishedDate: state.listRecipes.find(item => item.id == recipeId)
     };
 }
 export default compose(

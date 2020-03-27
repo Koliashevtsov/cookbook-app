@@ -10,9 +10,9 @@ class CardContainer extends Component {
 
     chooseItem(itemVersion){
         // add our id and updatedDate to path
-        const parentId = itemVersion.parentId;
+        const recipeId = this.props.recipeId;
         const updatedDate = itemVersion.updatedDate;
-        this.props.history.push(`/view-page/${parentId}/${updatedDate}`)
+        this.props.history.push(`/view-page/${recipeId}/${updatedDate}`)
     }
 
     render(){

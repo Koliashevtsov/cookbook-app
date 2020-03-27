@@ -14,8 +14,9 @@ const ItemsList = (props) => {
                         return (
                             <li key={item.id}>
                                 <CardContainer
-                                    itemVersion={item.listVersions[0]}
-                                    publishedDate={item.publishedDate}/>
+                                    itemVersion={item.versions[0]}
+                                    publishedDate={item.publishedDate}
+                                    recipeId={item.id}/>
                             </li>
                         );
                     })

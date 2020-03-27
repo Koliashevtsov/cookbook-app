@@ -5,17 +5,21 @@ const getRandomId = (min, max) => {
 
 const getCurrentVersion = (state, action) => {
     const list = state.listRecipes;
-    const recipeId = action.payload[0]
+    console.log(list);
+    const recipeId = action.payload[0];
+    console.log(recipeId);
     const updatedDate = action.payload[1];
 
     const itemRecipe = list.find(item => item.id == recipeId);
-    const itemVersion = itemRecipe.listVersions.find(item => {
+    const itemVersion = itemRecipe.versions.find(item => {
         return item.updatedDate == updatedDate
     })
-    const idxVersion = itemRecipe.listVersions.findIndex(item => {
-        return item.updatedDate === itemVersion.updatedDate;
+    const idxVersion = itemRecipe.versions.findIndex(item => {
+        return item.updatedDate == itemVersion.updatedDate;
     })
-    const prevVersions = itemRecipe.listVersions.slice(idxVersion + 1);
+    console.log(idxVersion);
+    const prevVersions = itemRecipe.versions.slice(idxVersion + 1);
+    console.log(prevVersions);
     return {
         ...state,
         currentVersion: itemVersion,
@@ -36,7 +40,7 @@ const addNewVersion = (state, action) => {
     const idCurrentRecipe = parentId;
     const idxCurrentRecipe = state.listRecipes.findIndex(item => item.id === idCurrentRecipe);
     const currentRecipe = state.listRecipes[idxCurrentRecipe];
-    const newListVersions = currentRecipe.listVersions.unshift(newVersion)
+    const newListVersions = currentRecipe.versions.unshift(newVersion)
     const newRecipe = {
         ...currentRecipe,
         newListVersions
@@ -54,29 +58,29 @@ const addNewVersion = (state, action) => {
         previousVersions: newPreviousVersions
     }
 }
-const addNewRecipe = (state, action) => {
-    const list = state.listRecipes;
-    const id = getRandomId(0, 1000000);
-    const publishedDate = Date.now();
-    const updatedDate = publishedDate;
-    const newVersion = {
-        parentId: id,
-        updatedDate: updatedDate,
-        title: action.payload[0],
-        imageUrl: action.payload[1],
-        descriptions: action.payload[2]
-    }
-    const newRecipe = {
-        id: id,
-        publishedDate: publishedDate,
-        listVersions: [newVersion]
-    }
-    const newListRecipes = [
-        ...list,
-        newRecipe
-    ]
-    return newListRecipes;
-}
+// const addNewRecipe = (state, action) => {
+//     const list = state.listRecipes;
+//     const id = getRandomId(0, 1000000);
+//     const publishedDate = Date.now();
+//     const updatedDate = publishedDate;
+//     const newVersion = {
+//         parentId: id,
+//         updatedDate: updatedDate,
+//         title: action.payload[0],
+//         imageUrl: action.payload[1],
+//         descriptions: action.payload[2]
+//     }
+//     const newRecipe = {
+//         id: id,
+//         publishedDate: publishedDate,
+//         versions: [newVersion]
+//     }
+//     const newListRecipes = [
+//         ...list,
+//         newRecipe
+//     ]
+//     return newListRecipes;
+// }
 
 const deleteItemVersion = (state, action) => {
     const list = state.listRecipes;
@@ -86,19 +90,19 @@ const deleteItemVersion = (state, action) => {
     const idxCurrentRecipe = list.findIndex(item => item.id == recipeId);
     console.log("idxCurrentRecipe", idxCurrentRecipe);
     const currentRecipe = list[idxCurrentRecipe];
-    const listVersions = currentRecipe.listVersions;
+    const versions = currentRecipe.versions;
 
-    const idxDeletedVersion = listVersions.findIndex(item => {
+    const idxDeletedVersion = versions.findIndex(item => {
         return item.updatedDate == updatedDate;
     })
     const newListVersions = [
-        ...listVersions.slice(0, idxDeletedVersion),
-        ...listVersions.slice(idxDeletedVersion + 1)
+        ...versions.slice(0, idxDeletedVersion),
+        ...versions.slice(idxDeletedVersion + 1)
     ]
 
     const newCurrentRecipe = {
         ...currentRecipe,
-        listVersions: newListVersions
+        versions: newListVersions
     }
 
     // data write to store
@@ -139,7 +143,8 @@ const reducer = (state, action) => {
         return {
             listRecipes: [],
             currentVersion: {},
-            previousVersions: []
+            previousVersions: [],
+            postAddRecipeResult: {}
         };
     }
 
@@ -150,7 +155,7 @@ const reducer = (state, action) => {
                 listRecipes: action.payload
             };
         case 'FETCH_LIST_FAILURE':
-            console.log('ERROR');
+            console.log(`ERROR throw FETCH_LIST_FAILURE, ${action.payload}`);
         case 'CURRENT_VERSION_SUCCESS':
             return getCurrentVersion(state, action)
         case 'ADD_NEW_VERSION_SUCCESS':
@@ -158,7 +163,7 @@ const reducer = (state, action) => {
         case 'ADD_NEW_RECIPE_SUCCESS':
             return {
                 ...state,
-                listRecipes: addNewRecipe(state, action)
+                postAddRecipeResult: action.payload
             };
         case 'DELETE_VERSION_SUCCESS':
             return deleteItemVersion(state, action);

@@ -11,7 +11,6 @@ import { compose } from '../../utils';
 class ItemsListContainer extends Component {
 
     componentDidMount(){
-        console.log('componentDidMount');
         this.props.getList()
     }
 

@@ -14,7 +14,7 @@ class ItemDetailsContainer extends Component {
         super(props)
 
         this.onClickEdit = () => {
-            const recipeId = this.props.match.params.itemId;
+            const recipeId = this.props.match.params.recipeId;
             const updatedDate = this.props.currentVersion.updatedDate;
             this.props.history.push(`/edit-item/${recipeId}/${updatedDate}`)
         }
@@ -26,7 +26,6 @@ class ItemDetailsContainer extends Component {
 
     componentDidUpdate(prevProps){
         console.log('currentVersion', this.props.currentVersion);
-        console.log('previousVersions', this.props.previousVersions);
 
         if(this.props.match.params.updatedDate !== prevProps.match.params.updatedDate){
             console.log('componentDidUpdate, getCurrentVersion()');
@@ -40,8 +39,8 @@ class ItemDetailsContainer extends Component {
             // so i do review to work
             if(this.props.currentVersion){
                 if(this.props.match.params.updatedDate !== this.props.currentVersion.updatedDate){
-                    console.log('pushed in path')
-                    this.props.history.push(`/view-page/${this.props.currentVersion.parentId}/${this.props.currentVersion.updatedDate}`)
+                    const recipeId = this.props.match.params.recipeId;
+                    this.props.history.push(`/view-page/${recipeId}/${this.props.currentVersion.updatedDate}`)
 
                 }
             }
@@ -68,14 +67,14 @@ class ItemDetailsContainer extends Component {
 }
 
 const mapStateToProps = (state, { match }) => {
-    const recipeId = match.params.itemId;
+    const recipeId = match.params.recipeId;
     return {
         currentVersion: state.currentVersion,
-        publishedDate: state.listRecipes[recipeId].publishedDate,
+        publishedDate: state.listRecipes.find(item => item.id == recipeId),
     };
 }
 const mapDispatchToProps = (dispatch, { match, history }) => {
-    const recipeId = match.params.itemId;
+    const recipeId = match.params.recipeId;
     const updatedDate = match.params.updatedDate;
     return {
         getCurrentVersion: () => dispatch(getCurrentVersion(recipeId, updatedDate)),
