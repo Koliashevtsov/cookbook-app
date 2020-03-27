@@ -10,13 +10,13 @@ const ItemsList = (props) => {
         <div className="items-list">
             <ul>
                 {
-                    items.map(item => {
+                    items.map((item, index) => {
                         return (
-                            <li key={item.id}>
+                            <li key={index}>
                                 <CardContainer
                                     itemVersion={item.versions[0]}
                                     publishedDate={item.publishedDate}
-                                    recipeId={item.id}/>
+                                    recipeId={item._id}/>
                             </li>
                         );
                     })

@@ -8,14 +8,14 @@ const getCurrentVersion = (state, action) => {
     console.log(list);
     const recipeId = action.payload[0];
     console.log(recipeId);
-    const updatedDate = action.payload[1];
+    const versionId = action.payload[1];
 
-    const itemRecipe = list.find(item => item.id == recipeId);
+    const itemRecipe = list.find(item => item._id == recipeId);
     const itemVersion = itemRecipe.versions.find(item => {
-        return item.updatedDate == updatedDate
+        return item._id == versionId
     })
     const idxVersion = itemRecipe.versions.findIndex(item => {
-        return item.updatedDate == itemVersion.updatedDate;
+        return item._id == itemVersion._id;
     })
     console.log(idxVersion);
     const prevVersions = itemRecipe.versions.slice(idxVersion + 1);
@@ -144,7 +144,7 @@ const reducer = (state, action) => {
             listRecipes: [],
             currentVersion: {},
             previousVersions: [],
-            postAddRecipeResult: {}
+            loadingIndicator: false
         };
     }
 
@@ -160,13 +160,18 @@ const reducer = (state, action) => {
             return getCurrentVersion(state, action)
         case 'ADD_NEW_VERSION_SUCCESS':
             return addNewVersion(state, action);
-        case 'ADD_NEW_RECIPE_SUCCESS':
-            return {
-                ...state,
-                postAddRecipeResult: action.payload
-            };
         case 'DELETE_VERSION_SUCCESS':
             return deleteItemVersion(state, action);
+        case 'LOADING_STARTED':
+            return {
+                ...state,
+                loadingIndicator: true
+            };
+        case 'LOADING_FINISHED':
+            return {
+                ...state,
+                loadingIndicator: false
+            };
         default:
             return state;
     }

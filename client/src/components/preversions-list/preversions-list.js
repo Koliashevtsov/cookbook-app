@@ -5,7 +5,7 @@ import CardContainer from '../../containers/card-container';
 import './preversions-list.scss'
 
 const PreversionsList = (props) => {
-    const { items, publishedDate } = props;
+    const { items, publishedDate, recipeId } = props;
     return (
         <div className="preversions-list">
             <ul>
@@ -15,7 +15,8 @@ const PreversionsList = (props) => {
                             <li key={index}>
                                 <CardContainer
                                     itemVersion={item}
-                                    publishedDate={publishedDate}/>
+                                    publishedDate={publishedDate}
+                                    recipeId={recipeId}/>
                             </li>
                         );
                     })

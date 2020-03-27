@@ -20,13 +20,13 @@ const App = (props) => {
                     exact path="/"
                     component={ItemsListContainer}/>
                 <Route
-                    path="/view-page/:recipeId/:updatedDate"
+                    path="/view-page/:recipeId/:versionId"
                     component={ViewPage}/>
                 <Route
                     path="/add-item"
                     component={AddItemContainer}/>
                 <Route
-                    path="/edit-item/:recipeId/:updatedDate"
+                    path="/edit-item/:recipeId/:versionId"
                     component={EditItemContainer}/>
             </div>
             <Footer/>

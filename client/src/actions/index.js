@@ -1,3 +1,13 @@
+const loadingStarted = () => {
+    return {
+        type: 'LOADING_STARTED'
+    };
+}
+const loadingFinished = () => {
+    return {
+        type: 'LOADING_FINISHED'
+    };
+}
 const reciresListLoaded = (recipesList) => {
     return {
         type: 'FETCH_LIST_SUCCESS',
@@ -5,46 +15,47 @@ const reciresListLoaded = (recipesList) => {
     };
 }
 const recipesListError = (err) => {
-    console.log('error ocured', err);
     return {
         type: 'FETCH_LIST_FAILURE',
         payload: err
     };
 }
-const getCurrentVersion = (parentId, updatedDate) => {
+const getCurrentVersion = (recipeId, updatedDate) => {
     return {
         type: 'CURRENT_VERSION_SUCCESS',
-        payload: [parentId, updatedDate]
+        payload: [recipeId, updatedDate]
     };
 }
-const newRecipeAdded = (response) => {
-    return {
-        type: 'ADD_NEW_RECIPE_SUCCESS',
-        payload: response
-    }
+
+const addNewVersion = (cookbookService) => (title, imageUrl, descr, recipeId) => (dispatch) => {
+    dispatch(loadingStarted());
+    cookbookService.addNewVersion(title, imageUrl, descr, recipeId)
+        .then(body => {
+            if(body.status == 200) dispatch(loadingFinished())
+        })
 }
-const addNewVersion = (cookbookService) => (title, imageUrl, descr, recipeId) => () => {
-    console.log('recipeId', recipeId);
-    cookbookService.addNewVersion(title, imageUrl, descr, recipeId);
-}
-const deleteItemVersion = (parentId, updatedDate) => {
-    return {
-        type: 'DELETE_VERSION_SUCCESS',
-        payload: [parentId, updatedDate]
-    };
-}
-const addNewRecipe = (cookbookService, dispatch) => (title, imageUrl, descr) => () => {
-    const promise = cookbookService.addNewRecipe(title, imageUrl, descr)
-    dispatch(newRecipeAdded(promise))
+
+const addNewRecipe = (cookbookService) => (title, imageUrl, descr) => (dispatch) => {
+    dispatch(loadingStarted());
+    cookbookService.addNewRecipe(title, imageUrl, descr)
+        .then(body => {
+            if(body.status == 201) dispatch(loadingFinished())
+        })
 
 }
 const fetchRecipes = (cookbookService, dispatch) => () => {
     cookbookService.getRecipesList()
         .then(body => {
-            console.log('body', body);
             if (body.status == 200) dispatch(reciresListLoaded(body.data))
         })
         .catch(err => dispatch(recipesListError(err)))
+}
+const deleteItemVersion = (cookbookService) => (recipeId, versionId) => (dispatch) => {
+    cookbookService.deleteItem(recipeId, versionId)
+        .then(body => {
+            if(body.status == 204) console.log('recipe_deleted');
+            if(body.status == 200) console.log(body.data)
+        })
 }
 
 export {

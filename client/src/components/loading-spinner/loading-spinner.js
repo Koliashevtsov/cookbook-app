@@ -1,10 +1,10 @@
 import React from 'react';
 
-const PostedSpinner = (props) => {
+const LoadingSpinner = (props) => {
     return (
         <div>
             Spinner
         </div>
     );
 }
-export default PostedSpinner;
+export default LoadingSpinner;

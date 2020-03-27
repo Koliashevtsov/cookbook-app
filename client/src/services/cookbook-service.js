@@ -2,11 +2,6 @@ import axios from 'axios';
 
 class CookbookService {
 
-    getRandomId(min, max) {
-        const int = Math.floor(Math.random() * (max - min + 1)) + min;
-        return int.toString(36);
-    }
-
     async getRecipesList() {
         const res = await axios.get('http://localhost:3001/api/get-all-recipes');
         const body = res
@@ -15,7 +10,6 @@ class CookbookService {
     }
 
     addNewRecipe(title, imageUrl, descr) {
-        const id = this.getRandomId(0, 1000000);
         const publishedDate = Date.now();
         const updatedDate = publishedDate;
         const newVersion = {
@@ -26,7 +20,6 @@ class CookbookService {
         }
 
         const newRecipe = {
-            id: id,
             publishedDate: publishedDate,
             newVersion: newVersion
         }
@@ -43,10 +36,15 @@ class CookbookService {
             descriptions: descr,
             updatedDate: updatedDate
         }
-        axios.put('http://localhost:3001/api/add-new-verion', {
+        return axios.put('http://localhost:3001/api/add-new-verion', {
             id: id,
             newVersion: newVersion
         })
+    }
+
+    deleteItem(recipeId, versionId){
+        const url = `http://localhost:3001/api/delete/recipe/${recipeId}/version/${versionId}`
+        return axios.delete(url);
     }
 
 }

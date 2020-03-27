@@ -4,6 +4,8 @@ import { withRouter } from 'react-router-dom';
 
 import { getCurrentVersion, deleteItemVersion } from '../../actions';
 
+import { withCookbookService } from '../../components/hoc';
+
 import ItemDetails from '../../components/item-details';
 import Message from '../../components/message';
 
@@ -15,8 +17,8 @@ class ItemDetailsContainer extends Component {
 
         this.onClickEdit = () => {
             const recipeId = this.props.match.params.recipeId;
-            const updatedDate = this.props.currentVersion.updatedDate;
-            this.props.history.push(`/edit-item/${recipeId}/${updatedDate}`)
+            const versionId = this.props.currentVersion._id;
+            this.props.history.push(`/edit-item/${recipeId}/${versionId}`)
         }
     }
 
@@ -27,21 +29,21 @@ class ItemDetailsContainer extends Component {
     componentDidUpdate(prevProps){
         console.log('currentVersion', this.props.currentVersion);
 
-        if(this.props.match.params.updatedDate !== prevProps.match.params.updatedDate){
+        if(this.props.match.params.versionId !== prevProps.match.params.versionId){
             console.log('componentDidUpdate, getCurrentVersion()');
             this.props.getCurrentVersion()
         }
 
 
         // updated path after deleted itemVersion
-        if(prevProps.currentVersion !== this.props.currentVersion){
+        if(prevProps.currentVersion.versionId !== this.props.currentVersion.versionId){
             // when i remove the last itemVersion this.props.currentVersion is undefined
             // so i do review to work
             if(this.props.currentVersion){
-                if(this.props.match.params.updatedDate !== this.props.currentVersion.updatedDate){
+                if(this.props.match.params.versionId !== this.props.currentVersion.versionId){
                     const recipeId = this.props.match.params.recipeId;
-                    this.props.history.push(`/view-page/${recipeId}/${this.props.currentVersion.updatedDate}`)
-
+                    this.props.history.push(`/view-page/${recipeId}/${this.props.currentVersion.versionId}`)
+                    console.log('pusheeeeeeeeeeeeeeeeeeeed');
                 }
             }
         }
@@ -49,6 +51,7 @@ class ItemDetailsContainer extends Component {
 
 
     render(){
+        console.log('hello');
         return (
             <>
                 {
@@ -70,20 +73,22 @@ const mapStateToProps = (state, { match }) => {
     const recipeId = match.params.recipeId;
     return {
         currentVersion: state.currentVersion,
-        publishedDate: state.listRecipes.find(item => item.id == recipeId),
+        publishedDate: state.listRecipes.find(item => item._id == recipeId).publishedDate,
     };
 }
-const mapDispatchToProps = (dispatch, { match, history }) => {
+const mapDispatchToProps = (dispatch, prevProps) => {
+    const { match, cookbookService } = prevProps;
     const recipeId = match.params.recipeId;
-    const updatedDate = match.params.updatedDate;
+    const versionId = match.params.versionId;
     return {
-        getCurrentVersion: () => dispatch(getCurrentVersion(recipeId, updatedDate)),
+        getCurrentVersion: () => dispatch(getCurrentVersion(recipeId, versionId)),
         onClickDelete: () => {
-            dispatch(deleteItemVersion(recipeId, updatedDate, history))
+            dispatch(deleteItemVersion(cookbookService)(recipeId, versionId))
         }
     };
 }
 export default compose(
     withRouter,
+    withCookbookService(),
     connect(mapStateToProps, mapDispatchToProps)
 )(ItemDetailsContainer)

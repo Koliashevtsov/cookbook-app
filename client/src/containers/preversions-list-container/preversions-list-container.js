@@ -17,7 +17,8 @@ class PreversionsListContainer extends Component {
                         <Collapse>
                             <PreversionsList
                                 items={this.props.previousVersions}
-                                publishedDate={this.props.publishedDate}/>
+                                publishedDate={this.props.publishedDate}
+                                recipeId={this.props.recipeId}/>
                         </Collapse>
                 }
             </>
@@ -28,8 +29,9 @@ class PreversionsListContainer extends Component {
 const mapStateToProps = (state, { match }) => {
     const recipeId = match.params.recipeId;
     return {
+        recipeId: recipeId,
         previousVersions: state.previousVersions,
-        publishedDate: state.listRecipes.find(item => item.id == recipeId)
+        publishedDate: state.listRecipes.find(item => item._id == recipeId)
     };
 }
 export default compose(

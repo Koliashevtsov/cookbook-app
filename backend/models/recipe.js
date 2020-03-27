@@ -12,7 +12,6 @@ const versionSchema = new Schema(
 
 const recipeSchema = new Schema(
     {
-        id: { type: String, unique: true },
         publishedDate: Number,
         versions: [versionSchema]
     }
