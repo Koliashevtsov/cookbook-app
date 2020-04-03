@@ -2,12 +2,13 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
-import { getCurrentVersion, deleteItemVersion } from '../../actions';
+import { getCurrentRecipe, getCurrentVersion, deleteItemVersion } from '../../actions';
 
 import { withCookbookService } from '../../components/hoc';
 
 import ItemDetails from '../../components/item-details';
 import Message from '../../components/message';
+import LoadingSpinner from '../../components/loading-spinner';
 
 import { compose } from '../../utils';
 
@@ -23,57 +24,45 @@ class ItemDetailsContainer extends Component {
     }
 
     componentDidMount(){
+        this.props.getCurrentRecipe()
         this.props.getCurrentVersion()
     }
 
     componentDidUpdate(prevProps){
-        console.log('currentVersion', this.props.currentVersion);
-
-        if(this.props.match.params.versionId !== prevProps.match.params.versionId){
-            console.log('componentDidUpdate, getCurrentVersion()');
+        if(prevProps.match.params.versionId != this.props.match.params.versionId){
+            // do this after choose another card
             this.props.getCurrentVersion()
         }
-
-
-        // updated path after deleted itemVersion
-        if(prevProps.currentVersion.versionId !== this.props.currentVersion.versionId){
-            // when i remove the last itemVersion this.props.currentVersion is undefined
-            // so i do review to work
-            if(this.props.currentVersion){
-                if(this.props.match.params.versionId !== this.props.currentVersion.versionId){
-                    const recipeId = this.props.match.params.recipeId;
-                    this.props.history.push(`/view-page/${recipeId}/${this.props.currentVersion.versionId}`)
-                    console.log('pusheeeeeeeeeeeeeeeeeeeed');
-                }
+        if(prevProps.currentRecipe.versions && this.props.currentRecipe){
+            if(prevProps.currentRecipe.versions.length != this.props.currentRecipe.versions.length){
+                // change versionId in url params after deleting some version
+                const newCurrentVersionId = this.props.currentRecipe.versions[0]._id;
+                this.props.history.push(newCurrentVersionId);
             }
         }
     }
 
 
     render(){
-        console.log('hello');
         return (
-            <>
-                {
-
-                    !this.props.currentVersion ? <Message/> :
-                    <ItemDetails
+            <>{
+                this.props.loadingIndicator ? <LoadingSpinner/> :
+                !this.props.currentRecipe ? <Message/> : // its no possible because in this case i delete whole recipe
+                <ItemDetails
                         currentVersion={this.props.currentVersion}
-                        publishedDate={this.props.publishedDate}
+                        publishedDate={this.props.currentRecipe.publishedDate}
                         onClickEdit={this.onClickEdit}
-                        onClickDelete={this.props.onClickDelete}/>
-
-                }
+                        onClickDelete={this.props.onClickDelete}/>}
             </>
         );
     }
 }
 
-const mapStateToProps = (state, { match }) => {
-    const recipeId = match.params.recipeId;
+const mapStateToProps = (state) => {
     return {
+        loadingIndicator: state.loadingIndicator,
+        currentRecipe: state.currentRecipe,
         currentVersion: state.currentVersion,
-        publishedDate: state.listRecipes.find(item => item._id == recipeId).publishedDate,
     };
 }
 const mapDispatchToProps = (dispatch, prevProps) => {
@@ -81,7 +70,8 @@ const mapDispatchToProps = (dispatch, prevProps) => {
     const recipeId = match.params.recipeId;
     const versionId = match.params.versionId;
     return {
-        getCurrentVersion: () => dispatch(getCurrentVersion(recipeId, versionId)),
+        getCurrentRecipe: () => dispatch(getCurrentRecipe(recipeId)),
+        getCurrentVersion: () => dispatch(getCurrentVersion(versionId)),
         onClickDelete: () => {
             dispatch(deleteItemVersion(cookbookService)(recipeId, versionId))
         }

@@ -20,12 +20,25 @@ const recipesListError = (err) => {
         payload: err
     };
 }
-const getCurrentVersion = (recipeId, updatedDate) => {
+const getCurrentRecipe = (recipeId) => {
     return {
-        type: 'CURRENT_VERSION_SUCCESS',
-        payload: [recipeId, updatedDate]
+        type: 'CURRENT_RECIPE_GOT',
+        payload: recipeId
     };
 }
+const getCurrentVersion = (versionId) => {
+    return {
+        type: 'CURRENT_VERSION_GOT',
+        payload: versionId
+    };
+}
+const itemDeleted = (itemRecipe) => {
+    return {
+        type: 'ITEM_DELETED_SUCCESS',
+        payload: itemRecipe
+    };
+}
+
 
 const addNewVersion = (cookbookService) => (title, imageUrl, descr, recipeId) => (dispatch) => {
     dispatch(loadingStarted());
@@ -46,22 +59,34 @@ const addNewRecipe = (cookbookService) => (title, imageUrl, descr) => (dispatch)
 const fetchRecipes = (cookbookService, dispatch) => () => {
     cookbookService.getRecipesList()
         .then(body => {
-            if (body.status == 200) dispatch(reciresListLoaded(body.data))
+            if (body.status == 200) dispatch(reciresListLoaded(body.data));
         })
-        .catch(err => dispatch(recipesListError(err)))
+        .catch(err => dispatch(recipesListError(err)));
 }
 const deleteItemVersion = (cookbookService) => (recipeId, versionId) => (dispatch) => {
+    dispatch(loadingStarted());
     cookbookService.deleteItem(recipeId, versionId)
         .then(body => {
-            if(body.status == 204) console.log('recipe_deleted');
-            if(body.status == 200) console.log(body.data)
+            if(body.status == 200 || body.status == 204){
+                dispatch(itemDeleted(body.data));
+            }
+            dispatch(loadingFinished());
         })
+}
+const register = (cookbookService) => (formState) => (dispatch) => {
+    console.log('register');
+}
+const login = (cookbookService) => (formState) => (dispatch) => {
+    console.log('login');
 }
 
 export {
     fetchRecipes,
+    getCurrentRecipe,
     getCurrentVersion,
     addNewVersion,
     addNewRecipe,
-    deleteItemVersion
+    deleteItemVersion,
+    register,
+    login
 }

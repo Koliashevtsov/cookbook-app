@@ -4,6 +4,7 @@ import './items-list.scss';
 
 import CardContainer from '../../containers/card-container';
 
+
 const ItemsList = (props) => {
     const { items } = props;
     return (

@@ -1,7 +1,9 @@
 @import "../../styles/variables.scss";
 // reset styles
-body {
+*, *::before, *::after {
     box-sizing: border-box;
+}
+body {
     margin: 0;
 }
 ol, ul {
@@ -25,17 +27,18 @@ a:not([class]) {
 
 // add new styles
 .app {
-    display: flex;
-    flex-direction: column;
     width: 100%;
-    min-height: 100vh;
     background-color: #f0f0f0;
 
     .app-container {
-        flex: 1;
-        max-width: 768px;
-        margin: 0 auto;
-        background-color: #ffffff;
+        min-height: calc(100vh - 40px - 60px);
+        display: flex;
+        justify-content: center;
+
+        .main {
+            max-width: 768px;
+            background-color: #ffffff;
+        }
     }
 
 }

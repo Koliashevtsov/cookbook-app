@@ -13,7 +13,7 @@ class PreversionsListContainer extends Component {
             <>
                 {   // if list of previous versions not empty
                     // render button in collapse to open list
-                    this.props.previousVersions.length > 0 &&
+                    this.props.previousVersions.length > 0 && !this.props.loadingIndicator &&
                         <Collapse>
                             <PreversionsList
                                 items={this.props.previousVersions}
@@ -29,6 +29,7 @@ class PreversionsListContainer extends Component {
 const mapStateToProps = (state, { match }) => {
     const recipeId = match.params.recipeId;
     return {
+        loadingIndicator: state.loadingIndicator,
         recipeId: recipeId,
         previousVersions: state.previousVersions,
         publishedDate: state.listRecipes.find(item => item._id == recipeId)

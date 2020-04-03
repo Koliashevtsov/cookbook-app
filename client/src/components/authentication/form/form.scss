@@ -1,0 +1,38 @@
+@import "../../../styles/variables.scss";
+@import "../../../styles/mixins.scss";
+
+.input-container {
+    display: flex;
+    flex-flow: row wrap;
+    max-width: 380px;
+    padding: 20px;
+    background-color: $backgroundColorWhite;
+
+    span {
+        flex: 1 1 340px;
+    }
+    input {
+        @include input-style;
+        font-family: $panelFontFamilyMain;
+        padding: 8px 12px;
+        width: 100%;
+
+        &:focus {
+            border: 2px solid $borderColorOrange;
+        }
+    }
+
+    label {
+        margin-bottom: 20px;
+    }
+    .submit {
+        @include button-style;
+        @include submit-style;
+        flex: 1 1 340px;
+        box-shadow: 0px 0px 2px 0px rgba(0,0,0,0.75);
+
+        &:hover {
+            cursor: pointer;
+        }
+    }
+}
