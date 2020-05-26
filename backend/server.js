@@ -54,7 +54,6 @@ router.delete('/deleteData', (req, res) => {
 
 
 
-
     if ((!id && id !== 0) || !message){
         return res.json({
             success: false,
