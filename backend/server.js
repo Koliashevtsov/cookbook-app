@@ -52,11 +52,8 @@ router.delete('/deleteData', (req, res) => {
     });
 });
 
-// this method adds new data in our database
-router.post('/putData', (req, res) => {
-    let data = new Data();
 
-    const { id, message } = req.body;
+
 
     if ((!id && id !== 0) || !message){
         return res.json({
