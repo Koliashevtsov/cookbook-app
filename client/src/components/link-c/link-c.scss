@@ -1,0 +1,11 @@
+@import "../../styles/variables.scss";
+.link {
+    font-family: $panelFontFamilyMain;
+    font-size: $panelFontSizeMedium;
+    color: $panelColorSecondary;
+    display: inline-block;
+    padding: 0 14px 0 14px;
+}
+.active {
+    background-color: $backgroundColorOrange;
+}

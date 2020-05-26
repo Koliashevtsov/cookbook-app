@@ -13,11 +13,12 @@ class PreversionsListContainer extends Component {
             <>
                 {   // if list of previous versions not empty
                     // render button in collapse to open list
-                    this.props.previousVersions.length > 0 &&
+                    this.props.previousVersions.length > 0 && !this.props.loadingIndicator &&
                         <Collapse>
                             <PreversionsList
                                 items={this.props.previousVersions}
-                                publishedDate={this.props.publishedDate}/>
+                                publishedDate={this.props.publishedDate}
+                                recipeId={this.props.recipeId}/>
                         </Collapse>
                 }
             </>
@@ -26,17 +27,12 @@ class PreversionsListContainer extends Component {
 }
 
 const mapStateToProps = (state, { match }) => {
-    const recipeId = match.params.itemId;
-    const recipe = state.listRecipes.find(item => item.id == recipeId)
-    if (!recipe){
-        return {
-            previousVersions: state.previousVersions,
-            publishedDate: 0
-        };
-    }
+    const recipeId = match.params.recipeId;
     return {
-        previousVersions: state.previousVersions,
-        publishedDate: recipe.publishedDate
+        loadingIndicator: state.recipes.loadingIndicator,
+        recipeId: recipeId,
+        previousVersions: state.recipes.previousVersions,
+        publishedDate: state.recipes.listRecipes.find(item => item._id == recipeId)
     };
 }
 export default compose(

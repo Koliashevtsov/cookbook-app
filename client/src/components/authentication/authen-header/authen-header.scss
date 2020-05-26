@@ -1,0 +1,14 @@
+@import "../../../styles/variables.scss";
+
+.authen-header {
+    display: flex;
+    justify-content: space-between;
+    background-color: #2c2c2c;
+    padding: 0 20px;
+
+    .link {
+        flex: 1 1 140px;
+        padding: 17px 0;
+        text-align: center;
+    }
+}

@@ -4,18 +4,20 @@ import './items-list.scss';
 
 import CardContainer from '../../containers/card-container';
 
+
 const ItemsList = (props) => {
     const { items } = props;
     return (
         <div className="items-list">
             <ul>
                 {
-                    items.map(item => {
+                    items.map((item, index) => {
                         return (
-                            <li key={item.id}>
+                            <li key={index}>
                                 <CardContainer
-                                    itemVersion={item.listVersions[0]}
-                                    publishedDate={item.publishedDate}/>
+                                    itemVersion={item.versions[0]}
+                                    publishedDate={item.publishedDate}
+                                    recipeId={item._id}/>
                             </li>
                         );
                     })

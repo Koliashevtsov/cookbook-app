@@ -9,10 +9,9 @@ import Card from '../../components/card';
 class CardContainer extends Component {
 
     chooseItem(itemVersion){
-        // add our id and updatedDate to path
-        const parentId = itemVersion.parentId;
-        const updatedDate = itemVersion.updatedDate;
-        this.props.history.push(`/view-page/${parentId}/${updatedDate}`)
+        const { recipeId } = this.props;
+        const versionId = itemVersion._id;
+        this.props.history.push(`/view-page/${recipeId}/${versionId}`)
     }
 
     render(){

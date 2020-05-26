@@ -1,0 +1,8 @@
+@import "../../styles/variables.scss";
+
+.authentication {
+    align-self: center;
+    max-width: 380px;
+    font-family: $panelFontFamilyMain;
+    box-shadow: 0px 0px 3px 1px rgba(69,69,69,0.75);
+}

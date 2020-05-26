@@ -5,26 +5,29 @@ import { withRouter } from 'react-router-dom';
 import { addNewRecipe } from '../../actions';
 
 import FormContainer from '../form-container';
+import { withCookbookService } from '../../components/hoc';
+
+import LoadingSpinner from '../../components/loading-spinner';
 
 import { compose } from '../../utils';
 
 class AddItemContainer extends Component {
     render(){
-        return (
-            <FormContainer getFormData={this.props.addNewRecipe}/>
-        );
+        return <FormContainer getFormData={this.props.addNewRecipe}/>
     }
 }
 
-const mapDispatchToProps = (dispatch, { history }) => {
+const mapDispatchToProps = (dispatch, prevProps) => {
+    const { cookbookService, history } = prevProps;
     return {
         addNewRecipe: (title, imageUrl, descr) => {
-            dispatch(addNewRecipe(title, imageUrl, descr));
-            history.push("/")
+            dispatch(addNewRecipe(cookbookService)(title, imageUrl, descr));
+            history.push('/')
         }
     };
 }
 export default compose(
     withRouter,
+    withCookbookService(),
     connect(null, mapDispatchToProps)
 )(AddItemContainer);

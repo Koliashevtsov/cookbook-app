@@ -2,7 +2,6 @@
 
 .item-details {
 
-
     .item-details-container {
         border: 1px solid #f0f0f0;
         font-family: $entryFontFamilyMain;
@@ -37,7 +36,7 @@
 
         .item-details-image {
             max-width: 400px;
-            height: 250px;
+            max-height: 250px;
             margin: 20px auto;
             display: flex;
             align-items: center;
