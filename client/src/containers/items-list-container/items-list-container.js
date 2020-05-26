@@ -12,19 +12,12 @@ import { compose } from '../../utils';
 class ItemsListContainer extends Component {
 
     componentDidMount(){
-        // to avoid wasted request to BD i wait until all my requests will be finished
-        if(!this.props.loadingIndicator){
-            this.props.getList()
-        }
-    }
-    componentDidUpdate(prevProps){
-        if(prevProps.loadingIndicator != this.props.loadingIndicator){
+
             this.props.getList()
         }
     }
 
     render(){
-        console.log('list', this.props.listRecipes);
         return (
             <>
                 {

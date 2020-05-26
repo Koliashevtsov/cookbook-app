@@ -27,12 +27,7 @@ class PreversionsListContainer extends Component {
 }
 
 const mapStateToProps = (state, { match }) => {
-    const recipeId = match.params.recipeId;
-    return {
-        loadingIndicator: state.recipes.loadingIndicator,
-        recipeId: recipeId,
-        previousVersions: state.recipes.previousVersions,
-        publishedDate: state.recipes.listRecipes.find(item => item._id == recipeId)
+
     };
 }
 export default compose(

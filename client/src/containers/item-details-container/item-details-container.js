@@ -29,15 +29,6 @@ class ItemDetailsContainer extends Component {
     }
 
     componentDidUpdate(prevProps){
-        if(prevProps.match.params.versionId != this.props.match.params.versionId){
-            // do this after choose another card
-            this.props.getCurrentVersion()
-        }
-        if(prevProps.currentRecipe.versions && this.props.currentRecipe){
-            if(prevProps.currentRecipe.versions.length != this.props.currentRecipe.versions.length){
-                // change versionId in url params after deleting some version
-                const newCurrentVersionId = this.props.currentRecipe.versions[0]._id;
-                this.props.history.push(newCurrentVersionId);
             }
         }
     }
@@ -58,11 +49,7 @@ class ItemDetailsContainer extends Component {
     }
 }
 
-const mapStateToProps = (state) => {
-    return {
-        loadingIndicator: state.recipes.loadingIndicator,
-        currentRecipe: state.recipes.currentRecipe,
-        currentVersion: state.recipes.currentVersion,
+
     };
 }
 const mapDispatchToProps = (dispatch, prevProps) => {
