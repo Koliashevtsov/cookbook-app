@@ -10,6 +10,8 @@ class CookbookService {
     }
 
     addNewRecipe(title, imageUrl, descr) {
+        const localStrInJSON = window.localStorage.getItem('redux');
+        const token = JSON.parse(localStrInJSON).auth.jwtToken;
         const publishedDate = Date.now();
         const updatedDate = publishedDate;
         const newVersion = {
@@ -23,7 +25,13 @@ class CookbookService {
             publishedDate: publishedDate,
             newVersion: newVersion
         }
-        return axios.post('http://localhost:3001/api/add-new-recipe', newRecipe)
+        return axios.post('http://localhost:3001/api/add-new-recipe', newRecipe,
+            {
+                headers: {
+                    Authorization: 'Bearer ' + token
+                }
+            }
+        )
 
     }
 
@@ -45,6 +53,22 @@ class CookbookService {
     deleteItem(recipeId, versionId){
         const url = `http://localhost:3001/api/delete/recipe/${recipeId}/version/${versionId}`
         return axios.delete(url);
+    }
+
+    register(data){
+        const { username, email, password } = data;
+        return axios.post('http://localhost:3001/api/sign-up', {
+            username,
+            email,
+            password
+        });
+    }
+    login(data){
+        const { email, password } = data;
+        return axios.post('http://localhost:3001/api/sign-in', {
+            email,
+            password
+        })
     }
 
 }

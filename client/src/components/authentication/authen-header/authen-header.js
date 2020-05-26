@@ -1,19 +1,19 @@
 import React from 'react';
 
+import LinkC from '../../link-c';
+
 import './authen-header.scss';
 
 const AuthenHeader = (props) => {
-    const { tab, handleTab } = props;
+    const { tab } = props;
     return (
         <div className="authen-header">
-            <div className={`sign-up btn ${ tab == 'register' ? "active" : ""}` }
-                 onClick={() => handleTab('register')}>
-                Sign Up
-            </div>
-            <div className={`sign-in btn ${ tab == 'login' ? "active" : "" }`}
-                 onClick={() => handleTab('login')}>
-                Sign In
-            </div>
+            <LinkC link={"sign-up"} isActive={tab}>
+                    Sign Up
+            </LinkC>
+            <LinkC link={"sign-in"} isActive={tab}>
+                    Sign In
+            </LinkC>
         </div>
     );
 }

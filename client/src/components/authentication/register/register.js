@@ -2,7 +2,7 @@ import React from 'react';
 
 import Form from '../form';
 
-const Register = ({ fields, submitRegister }) => {
+const Register = ({ fields, submitRegister, errorMessage }) => {
     return (
         <div className="register">
             <Form

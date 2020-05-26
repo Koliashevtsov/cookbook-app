@@ -7,7 +7,11 @@ const userSchema = new mongoose.Schema({
     email: {
         type: String,
         unique: true,
-        required: true
+        required: true,
+        validate: {
+            validator: async (email) => await User.where({ email: email }).countDocuments() === 0,
+            message: (email) => `${email.value} has already exist`
+        }
     },
     name: {
         type: String,
@@ -34,8 +38,8 @@ userSchema.methods.generateJwt = function () {
         _id: this._id,
         name: this.name,
         email: this.email,
-        exp: parseInt(expiry.getTime() / 1000),
+        exp: parseInt(expiry.getTime()),
     }, process.env.JWT_SECRET);
 }
 
-mongoose.model('User', userSchema)
+const User = mongoose.model('User', userSchema)

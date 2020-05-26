@@ -22,7 +22,7 @@ class EditItemContainer extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        currentVersion: state.currentVersion
+        currentVersion: state.recipes.currentVersion
     };
 }
 const mapDispatchToProps = (dispatch, prevProps) => {

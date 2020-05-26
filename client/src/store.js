@@ -1,8 +1,18 @@
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import thunk from 'redux-thunk';
+import persistState from 'redux-localstorage';
 
-import reducer from './reducers';
+import { recipes, auth } from './reducers';
 
-const store = createStore(reducer, applyMiddleware(thunk));
+const enhancer = compose(
+    applyMiddleware(thunk),
+    persistState()
+)
+const rootReducer = combineReducers({
+    auth,
+    recipes
+})
+
+const store = createStore(rootReducer, enhancer);
 
 export default store;

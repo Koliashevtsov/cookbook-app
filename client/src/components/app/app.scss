@@ -19,8 +19,8 @@ table {
    border-collapse: collapse;
    border-spacing: 0;
 }
-a:not([class]) {
-  text-decoration-skip-ink: auto;
+a{
+  text-decoration: none;
 }
 
 

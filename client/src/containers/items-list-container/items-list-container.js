@@ -39,8 +39,8 @@ class ItemsListContainer extends Component {
 }
 const mapStateToProps = (state) => {
     return {
-        listRecipes: state.listRecipes,
-        loadingIndicator: state.loadingIndicator
+        listRecipes: state.recipes.listRecipes,
+        loadingIndicator: state.recipes.loadingIndicator
     };
 }
 const mapDispatchToProps = (dispatch, { cookbookService }) => {

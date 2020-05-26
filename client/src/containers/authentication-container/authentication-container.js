@@ -17,6 +17,7 @@ class AuthenticationContainer extends Component {
         );
     }
 }
+
 const mapDispatchToProps = (dispatch, { cookbookService }) => {
     return {
         submitRegister: (formState) => dispatch(register(cookbookService)(formState)),

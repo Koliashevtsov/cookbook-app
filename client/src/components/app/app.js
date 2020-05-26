@@ -12,33 +12,26 @@ import EditItemContainer from '../../containers/edit-item-container';
 import AuthenticationContainer from '../../containers/authentication-container';
 import Footer from '../footer';
 
-const Main = (props) => {
-    return (
-        <div className="main">
-            <Route
-                exact path="/"
-                component={ItemsListContainer}/>
-            <Route
-                path="/view-page/:recipeId/:versionId"
-                component={ViewPage}/>
-            <Route
-                path="/add-item"
-                component={AddItemContainer}/>
-            <Route
-                path="/edit-item/:recipeId/:versionId"
-                component={EditItemContainer}/>
-        </div>
-    );
-}
 
 const App = (props) => {
     return (
         <div className="app">
             <Header/>
             <div className="app-container">
-                <Route
-                    path="/"
-                    component={Main}/>
+                <div className="main">
+                    <Route
+                        exact path="/"
+                        component={ItemsListContainer}/>
+                    <Route
+                        path="/view-page/:recipeId/:versionId"
+                        component={ViewPage}/>
+                    <Route
+                        path="/add-item"
+                        component={AddItemContainer}/>
+                    <Route
+                        path="/edit-item/:recipeId/:versionId"
+                        component={EditItemContainer}/>
+                </div>
                 <Route
                     path="/sign-up"
                     component={AuthenticationContainer}/>

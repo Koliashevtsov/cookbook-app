@@ -60,9 +60,9 @@ class ItemDetailsContainer extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        loadingIndicator: state.loadingIndicator,
-        currentRecipe: state.currentRecipe,
-        currentVersion: state.currentVersion,
+        loadingIndicator: state.recipes.loadingIndicator,
+        currentRecipe: state.recipes.currentRecipe,
+        currentVersion: state.recipes.currentVersion,
     };
 }
 const mapDispatchToProps = (dispatch, prevProps) => {

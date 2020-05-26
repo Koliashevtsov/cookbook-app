@@ -18,20 +18,7 @@
         }
     }
 
-    .link {
-        font-family: $panelFontFamilyMain;
-        font-size: $panelFontSizeMedium;
-        color: $panelColorSecondary;
-
-        span {
-            display: inline-block;
-            padding: 0 14px 0 14px;
-        }
-        .active {
-            background-color: $backgroundColorOrange;
-        }
-
-    }
+    
 
     .user-icon-wrapper {
         margin-left: auto;

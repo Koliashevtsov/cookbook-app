@@ -8,15 +8,14 @@ const sendJsonResponse = function (res, status, content) {
 }
 
 module.exports.register = function (req, res) {
-    const { name, email, password } = req.body;
-    console.log(name, email, password);
-    if(!name || !email || !password){
+    const { username, email, password } = req.body;
+    if(!username || !email || !password){
         return sendJsonResponse(res, 400, {
             message: 'All fields are required'
         });
     }
     const user = new User();
-    user.name = name;
+    user.name = username;
     user.email = email;
     user.setPassword(password);
     user.save(err => {
@@ -29,8 +28,8 @@ module.exports.register = function (req, res) {
 }
 
 module.exports.login = function (req, res) {
-    const { name, email, password } = req.body;
-    if(!name, !email, !password){
+    const { email, password } = req.body;
+    if(!email, !password){
         return sendJsonResponse(res, 400, {
             "message": "All fields are required"
         });

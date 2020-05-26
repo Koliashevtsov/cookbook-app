@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 
 import AuthenHeader from './authen-header';
 import Register from './register';
 import Login from './login';
+
+import { compose } from '../../utils';
 
 import './authentication.scss';
 
@@ -10,30 +13,37 @@ class Authentication extends Component {
     constructor(props){
         super(props)
         this.state = {
-            tab: 'register'
+            tab: ''
         }
-        this.handleTab = (marker) => {
-            this.setState({
-                tab: marker
-            })
-        }
+    }
+    componentDidMount(){
+        const pathName = this.props.location.pathname;
+        const newTab = pathName.slice(1);
+        this.setState({
+            tab: newTab
+        })
     }
     render(){
         const { submitRegister, submitLogin } = this.props;
         return (
             <div className="authentication">
-                <AuthenHeader handleTab={this.handleTab} tab={this.state.tab}/>
+                <AuthenHeader tab={this.state.tab}/>
                 {
-                    this.state.tab == 'register' ?
+                    this.state.tab == 'sign-up' &&
                     <Register
                         fields={['username', 'email', 'password']}
-                        submitRegister={submitRegister}/> :
+                        submitRegister={submitRegister}/>
+                }
+                {this.state.tab == 'sign-in' &&
                     <Login
                         fields={['email', 'password']}
                         submitLogin={submitLogin}/>
+
                 }
             </div>
         );
     }
 }
-export default Authentication;
+export default compose(
+    withRouter
+)(Authentication) ;
